@@ -1,0 +1,23 @@
+<h2 class="mb-6 text-2xl font-bold">Planetas</h2>
+
+@if (cargando()) {
+  <p class="text-stone-500">Cargando…</p>
+} @else {
+  <p class="mb-4 text-sm text-stone-500">
+    {{ total() }} planetas · página {{ pagina() }} de {{ totalPaginas() }}
+  </p>
+
+  <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    @for (p of planetas(); track p.id) {
+      <app-planeta-card [planeta]="p" />
+    } @empty {
+      <p class="text-stone-500">No hay planetas disponibles.</p>
+    }
+  </section>
+
+  <app-paginador
+    [pagina]="pagina()"
+    [totalPaginas]="totalPaginas()"
+    (cambio)="pagina.set($event)"
+  />
+}
